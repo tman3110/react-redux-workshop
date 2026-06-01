@@ -1,8 +1,7 @@
-import { useContext } from 'react'
-import { AppContext } from '../context/AppContext'
+import { useAppContext } from '../context/AppContext'
 
 function AppHeader() {
-  const { currency, setCurrency, theme, setTheme } = useContext(AppContext)!
+  const { currency, setCurrency, theme, setTheme } = useAppContext()
 
   return (
     <div className="app-header">

@@ -1,5 +1,5 @@
-import { memo, useContext } from 'react'
-import { AppContext } from '../context/AppContext'
+import { memo } from 'react'
+import { useAppContext } from '../context/AppContext'
 import type { Expense } from '../types/expense'
 
 interface ExpenseItemProps {
@@ -7,7 +7,7 @@ interface ExpenseItemProps {
 }
 
 function ExpenseItem({ expense }: ExpenseItemProps) {
-  const { dispatchExpenses, currencySymbol, theme } = useContext(AppContext)!
+  const { dispatchExpenses, currencySymbol, theme } = useAppContext()
 
   return (
     <li className="expense-item">

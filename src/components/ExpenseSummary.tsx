@@ -1,12 +1,11 @@
-import { useContext } from 'react'
-import { AppContext } from '../context/AppContext'
+import { useAppContext } from '../context/AppContext'
 
 interface ExpenseSummaryProps {
   total: number
 }
 
 function ExpenseSummary({ total }: ExpenseSummaryProps) {
-  const { currencySymbol } = useContext(AppContext)!
+  const { currencySymbol } = useAppContext()
 
   return (
     <div className="expense-summary">

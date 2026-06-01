@@ -1,6 +1,5 @@
 import { useMemo } from 'react'
-import { useContext } from 'react'
-import { AppContext } from '../context/AppContext'
+import { useAppContext } from '../context/AppContext'
 import { filterExpenses } from '../utils/filterExpenses'
 import ExpenseItem from './ExpenseItem'
 import ExpenseSummary from './ExpenseSummary'
@@ -10,7 +9,7 @@ interface ExpenseListProps {
 }
 
 function ExpenseList({ query }: ExpenseListProps) {
-  const { expenses } = useContext(AppContext)!
+  const { expenses } = useAppContext()
 
   const filteredExpenses = useMemo(
     () => filterExpenses(expenses, query),

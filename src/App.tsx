@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { useContext } from 'react'
-import { AppProvider, AppContext } from './context/AppContext'
+import { AppProvider } from './context/AppProvider'
+import { useAppContext } from './context/AppContext'
 import ExpenseForm from './components/ExpenseForm'
 import ExpenseList from './components/ExpenseList'
 import SearchBar from './components/SearchBar'
@@ -17,7 +17,7 @@ function App() {
 
 function AppBody() {
   const [query, setQuery] = useState('')
-  const { theme } = useContext(AppContext)!
+  const { theme } = useAppContext()
 
   return (
     <div className="app-layout" data-theme={theme}>

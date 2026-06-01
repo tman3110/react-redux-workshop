@@ -1,11 +1,10 @@
 import { useReducer } from 'react'
 import { CATEGORIES } from '../constants'
 import { formReducer, initialFormState } from '../reducers/formReducer'
-import { useContext } from 'react'
-import { AppContext } from '../context/AppContext'
+import { useAppContext } from '../context/AppContext'
 
 function ExpenseForm() {
-  const { dispatchExpenses } = useContext(AppContext)!
+  const { dispatchExpenses } = useAppContext()
   const [form, dispatch] = useReducer(formReducer, initialFormState)
 
   function handleSubmit(e: React.FormEvent) {
