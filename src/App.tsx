@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import type { Expense } from './types/expense'
 import { STORAGE_KEY } from './constants'
 import { filterExpenses } from './utils/filterExpenses'
@@ -20,11 +20,11 @@ function App() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(expenses))
   }, [expenses])
 
-  // TODO: wrap in useMemo(() => filterExpenses(expenses, query), [expenses, query])
-  const filteredExpenses = filterExpenses(expenses, query)
+  const filteredExpenses = useMemo(() => filterExpenses(expenses, query), [expenses, query])
 
-  // TODO: wrap in useMemo(() => filteredExpenses.reduce(...), [filteredExpenses])
-  const total = filteredExpenses.reduce((sum, e) => sum + e.amount, 0)
+  const total = useMemo(() => {
+  return filteredExpenses.reduce((sum, e) => sum + e.amount, 0);
+}, [filteredExpenses]); 
 
   function handleAddExpense(expense: Omit<Expense, 'id'>) {
     setExpenses(prev => [
