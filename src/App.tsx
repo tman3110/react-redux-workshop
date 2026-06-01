@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo, useCallback } from 'react'
 import type { Expense } from './types/expense'
 import { STORAGE_KEY } from './constants'
 import { filterExpenses } from './utils/filterExpenses'
+import { AppContext } from './context/AppContext'
 import ExpenseForm from './components/ExpenseForm'
 import ExpenseList from './components/ExpenseList'
 import SearchBar from './components/SearchBar'
@@ -45,30 +46,35 @@ function App() {
     ])
   }
 
-  // TODO: replace prop drilling with useContext
+  const appContextValue = useMemo(
+    () => ({
+      currency,
+      setCurrency,
+      theme,
+      setTheme,
+      currencySymbol,
+      total,
+    }),
+    [currency, theme, currencySymbol, total],
+  )
+
   return (
-    <div className="app-layout" data-theme={theme}>
-      <aside>
-        <h1>Expense Manager</h1>
-        <AppHeader
-          currency={currency}
-          theme={theme}
-          onCurrencyChange={setCurrency}
-          onThemeChange={setTheme}
-        />
-        <ExpenseForm onAddExpense={handleAddExpense} />
-      </aside>
-      <main>
-        <SearchBar query={query} onQueryChange={setQuery} />
-        <ExpenseList
-          expenses={filteredExpenses}
-          onDeleteExpense={handleDeleteExpense}
-          currencySymbol={currencySymbol}
-          total={total}
-          theme={theme}
-        />
-      </main>
-    </div>
+    <AppContext.Provider value={appContextValue}>
+      <div className="app-layout" data-theme={theme}>
+        <aside>
+          <h1>Expense Manager</h1>
+          <AppHeader />
+          <ExpenseForm onAddExpense={handleAddExpense} />
+        </aside>
+        <main>
+          <SearchBar query={query} onQueryChange={setQuery} />
+          <ExpenseList
+            expenses={filteredExpenses}
+            onDeleteExpense={handleDeleteExpense}
+          />
+        </main>
+      </div>
+    </AppContext.Provider>
   )
 }
 
